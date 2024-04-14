@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -24,6 +26,17 @@ class Category
 
     #[ORM\Column]
     private ?\DateTimeImmutable $update_at = null;
+
+    /**
+     * @var Collection<int, Thread>
+     */
+    #[ORM\ManyToMany(targetEntity: Thread::class, mappedBy: 'relation2')]
+    private Collection $threads;
+
+    public function __construct()
+    {
+        $this->threads = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +87,33 @@ class Category
     public function setUpdateAt(\DateTimeImmutable $update_at): static
     {
         $this->update_at = $update_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Thread>
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    public function addThread(Thread $thread): static
+    {
+        if (!$this->threads->contains($thread)) {
+            $this->threads->add($thread);
+            $thread->addRelation2($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThread(Thread $thread): static
+    {
+        if ($this->threads->removeElement($thread)) {
+            $thread->removeRelation2($this);
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ThreadRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,27 @@ class Thread
 
     #[ORM\Column(length: 100)]
     private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'relation3')]
+    private ?User $user = null;
+
+    /**
+     * @var Collection<int, response>
+     */
+    #[ORM\OneToMany(targetEntity: response::class, mappedBy: 'threads')]
+    private Collection $relation;
+
+    /**
+     * @var Collection<int, category>
+     */
+    #[ORM\ManyToMany(targetEntity: category::class, inversedBy: 'threads')]
+    private Collection $relation2;
+
+    public function __construct()
+    {
+        $this->relation = new ArrayCollection();
+        $this->relation2 = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +113,72 @@ class Thread
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, response>
+     */
+    public function getRelation(): Collection
+    {
+        return $this->relation;
+    }
+
+    public function addRelation(response $relation): static
+    {
+        if (!$this->relation->contains($relation)) {
+            $this->relation->add($relation);
+            $relation->setThreads($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(response $relation): static
+    {
+        if ($this->relation->removeElement($relation)) {
+            // set the owning side to null (unless already changed)
+            if ($relation->getThreads() === $this) {
+                $relation->setThreads(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, category>
+     */
+    public function getRelation2(): Collection
+    {
+        return $this->relation2;
+    }
+
+    public function addRelation2(category $relation2): static
+    {
+        if (!$this->relation2->contains($relation2)) {
+            $this->relation2->add($relation2);
+        }
+
+        return $this;
+    }
+
+    public function removeRelation2(category $relation2): static
+    {
+        $this->relation2->removeElement($relation2);
 
         return $this;
     }
