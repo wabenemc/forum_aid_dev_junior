@@ -3,29 +3,33 @@
 {% block title %}M'inscrire{% endblock %}
 
 {% block body %}
-    <h1>M'inscrire</h1>
+   
+   
 
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-
-        <div>
-                {{ form_row(registrationForm.username) }}
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header h3 mb-3 font-weight-normal">Inscription</div>
+                <div class="card-body">
+                    {{ form_start(registrationForm, {'attr': {'action': '/register', 'method': 'post'}}) }}
+                    <div class="form-group">
+                        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                     <p> Déjà inscrit(e) ? <a href="{{path('app_login')}}">Me connecter</a></p>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
         </div>
-
-        
-        <div>
-                {{ form_row(registrationForm.email) }}
-        </div>
-
-        <div>
-               {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
-        }) }}
-        </div>
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">M'inscrire</button>
+    </div>
+</div>
     {{ form_end(registrationForm) }}
-    <p> Déjà inscrit(e) ? <a href="{{path('app_login')}}">Me connecter</a></p>
+   
 {% endblock %}
