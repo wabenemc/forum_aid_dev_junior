@@ -3,10 +3,11 @@
 {% block title %}Thread{% endblock %}
 
 {% block body %}
-    {% for thread in threads %}
+    
         <div>
-            <a href="{{ path('app_thread_detail', {'id': thread.id}) }}">{{ thread.title }}</a>
+            <h2>{{ thread.title }}</h2>
             <p>{{ thread.body }}</p>
         </div>
-    {% endfor %}
+   
 {% endblock %}
+
