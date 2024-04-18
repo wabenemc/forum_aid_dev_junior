@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, thread>
      */
-    #[ORM\OneToMany(targetEntity: thread::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Thread::class, mappedBy: 'user')]
     private Collection $relation3;
 
     public function __construct()

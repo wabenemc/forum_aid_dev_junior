@@ -4,10 +4,12 @@
 
 {% block body %}
     
-        <div>
-            <h2>{{ thread.title }}</h2>
-            <p>{{ thread.body }}</p>
-        </div>
+    <div>
+        <div><h1>{{ thread.title }}</h1></div>
+        <p>{{ thread.body }}</p>
+        <form action="{{ path('app_thread_new') }}" method="post">
+            <button type="submit" class="btn btn-primary">Créer un thread</button>
+        </form>
+    </div>
    
 {% endblock %}
-
