@@ -1,0 +1,20 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %};kfkkk{% endblock %}
+
+{% block body %}
+
+            <div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Créer un nouveau thread</h2>
+            
+            {{ form(Form) }}
+            {{ form(Form) }}
+            <button type="submit" class="btn btn-primary">Valide</button>
+            {{ form_end(Form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
