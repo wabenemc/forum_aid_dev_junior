@@ -9,9 +9,10 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h2>Créer un nouveau thread</h2>
-            
-            {{ form(Form) }}
-            {{ form(Form) }}
+            {{form_start(Form)}}
+            {{ form_row(Form.title) }}
+            {{ form_row(Form.body) }}
+            {{ form_row(Form.relation2) }}
             <button type="submit" class="btn btn-primary">Valide</button>
             {{ form_end(Form) }}
         </div>

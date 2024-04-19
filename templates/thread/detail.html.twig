@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}detail
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h1>{{ thread.title }}</h1>
+		<p>{{ thread.body }}</p>
+
+		{% if app.user %}
+			<a href="{{ path('app_thread_new') }}">
+				<button class="btn btn-primary">Créer un thread</button>
+			</a>
+			<a href="{{ path('app_login') }}" class="btn btn-secondary">Retour</a>
+
+		{% else %}
+			<button type="button" class="btn btn-warning">Vous n'etes pas connecter pour direger un thread</button>
+		{% endif %}
+
+	</div>
+
+{% endblock %}

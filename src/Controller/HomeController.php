@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
+
+
     #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -19,7 +21,6 @@ class HomeController extends AbstractController
         $threads = $threadRepository->findAll();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-
             'threads' => $threads
         ]);
     }
